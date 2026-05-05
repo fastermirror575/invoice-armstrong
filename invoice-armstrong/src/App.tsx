@@ -3,14 +3,17 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 export default function App() {
+  const today = new Date();
+  const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  const dateStr = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
+  const random4 = Math.floor(1000 + Math.random() * 9000);
+  const defaultInvoiceNumber = `INV-${dateStr}-${random4}`;
+
   const [currency, setCurrency] = useState("IDR");
   const [format, setFormat] = useState("Artistic");
   const [isFormatOpen, setIsFormatOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
-  const [invoiceNumber, setInvoiceNumber] = useState("INV-2024-001");
-  const today = new Date();
-  const defaultDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-
+  const [invoiceNumber, setInvoiceNumber] = useState(defaultInvoiceNumber);
   const [date, setDate] = useState(defaultDate);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
@@ -119,8 +122,8 @@ export default function App() {
             Drafts
           </a>
           <a className="text-black dark:text-white flex items-center gap-3 p-4 m-2 border-[2.5px] border-transparent hover:border-black hover:bg-white hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 transition-all font-['Space_Grotesk'] font-bold text-sm uppercase" href="#">
-            <span className="material-symbols-outlined">send</span>
-            Sent
+            <span className="material-symbols-outlined">task_alt</span>
+            Issued
           </a>
           <a className="text-black dark:text-white flex items-center gap-3 p-4 m-2 border-[2.5px] border-transparent hover:border-black hover:bg-white hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 transition-all font-['Space_Grotesk'] font-bold text-sm uppercase" href="#">
             <span className="material-symbols-outlined">payments</span>
@@ -142,10 +145,9 @@ export default function App() {
 
       {/* TopAppBar (Mobile) */}
       <header className="lg:hidden flex justify-between items-center h-20 px-8 w-full bg-white dark:bg-zinc-900 border-b-[2.5px] border-black dark:border-white sticky top-0 z-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-        <h1 className="text-2xl font-black italic text-black dark:text-white uppercase font-['Space_Grotesk'] tracking-tight">BOLT INVOICE</h1>
+        <h1 className="text-2xl font-black italic text-black dark:text-white uppercase font-['Space_Grotesk'] tracking-tight">ARMSTRONG INVOICE</h1>
         <div className="flex gap-4">
           <button className="font-['Space_Grotesk'] font-bold uppercase tracking-tight text-black dark:text-white hover:text-[#FF90E8] hover:translate-x-[2px] hover:translate-y-[2px] transition-all">Save Draft</button>
-          <button className="font-['Space_Grotesk'] font-bold uppercase tracking-tight text-[#FF90E8] dark:text-[#FF90E8] hover:translate-x-[2px] hover:translate-y-[2px] transition-all">Send Invoice</button>
         </div>
       </header>
 
@@ -153,10 +155,9 @@ export default function App() {
       <main className="flex-1 lg:ml-64 flex flex-col xl:flex-row w-full max-w-[1920px] mx-auto bg-surface-container-low min-h-screen">
         {/* Top App Bar (Desktop inside main content for layout) */}
         <header className="hidden lg:flex justify-between items-center h-20 px-8 w-full bg-white dark:bg-zinc-900 border-b-[2.5px] border-black dark:border-white sticky top-0 z-40 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] col-span-full xl:absolute xl:w-[calc(100%-16rem)]">
-          <h2 className="text-2xl font-black italic text-black dark:text-white uppercase font-['Space_Grotesk'] tracking-tight">BOLT INVOICE</h2>
+          <h2 className="text-2xl font-black italic text-black dark:text-white uppercase font-['Space_Grotesk'] tracking-tight">ARMSTRONG INVOICE</h2>
           <div className="flex gap-6 items-center">
             <button className="font-['Space_Grotesk'] font-bold uppercase tracking-tight text-black dark:text-white hover:text-[#FF90E8] hover:translate-x-[2px] hover:translate-y-[2px] transition-all py-2">Save Draft</button>
-            <button className="font-['Space_Grotesk'] font-bold uppercase tracking-tight bg-black text-white px-6 py-2 border-[2.5px] border-black hover:bg-[#FF90E8] hover:text-black hover:translate-x-[2px] hover:translate-y-[2px] transition-all shadow-[4px_4px_0px_0px_rgba(255,144,232,1)] hover:shadow-none active:translate-x-[4px] active:translate-y-[4px]">Send Invoice</button>
           </div>
         </header>
 
